@@ -3,7 +3,7 @@ import CitySelection from './CitySelection';
 
 function mapStateToProps(store) {
     return {
-        city: store.city.cityName
+        cityName: store.weather.cityName,
     }
   }
 

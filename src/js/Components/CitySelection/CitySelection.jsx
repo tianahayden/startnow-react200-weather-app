@@ -1,16 +1,22 @@
 import React from 'react';
-import { updateCity } from './actions';
+import { updateCity, getWeather } from './actions';
 
 
 export default class CitySelection extends React.Component {
     constructor(props) {
         super(props);
         this.handleCitySearch = this.handleCitySearch.bind(this);
+        this.handleSearchButton = this.handleSearchButton.bind(this);
     }
 
     handleCitySearch(e) {
         const { dispatch } = this.props;
         dispatch(updateCity(e.target.value));
+    }
+
+    handleSearchButton() {
+        const { dispatch, cityName } = this.props; 
+         dispatch(getWeather(cityName)); 
     }
 
     render() {
@@ -28,7 +34,7 @@ export default class CitySelection extends React.Component {
                     <div className='input-group'>
                         <input type='text' className='form-control' onChange={this.handleCitySearch} />
                         <div className='input-group-append'>
-                            <button className='btn btn-outline-secondary' type='button'>Go!</button>
+                            <button className='btn btn-outline-secondary' type='button' onClick={this.handleSearchButton}>Go!</button>
                         </div>
                     </div>
                 </div>
