@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import citySelectionReducer from './Components/CitySelection/reducer'
 
 const rootReducer = combineReducers({
-// add reducers
+    city: citySelectionReducer
 });
 
 export default rootReducer;

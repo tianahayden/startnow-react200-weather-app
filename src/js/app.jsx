@@ -20,7 +20,7 @@ export default class App extends React.Component {
           </div>
         </div>
           <div className='row'>
-            <div className='col'>
+            <div className='col mb-4'>
               <DisplayResults />
             </div>
             <div className='col'>
