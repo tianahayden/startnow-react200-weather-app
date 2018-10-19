@@ -1,13 +1,16 @@
 const defaultState = {
     cityName: '',
-    cityData: '',
+    citySelected: '',
+    country: '',
     temperature: '',
     humidity: '',
     highTemp: '',
     lowTemp: '',
     sunrise: '',
     sunset: '',
-    windSpeed: ''
+    windSpeed: '',
+    toggle: true,
+    searchHistory: []
 };
 
 export default function CitySelectionReducer(state = defaultState, action) {
@@ -20,17 +23,58 @@ export default function CitySelectionReducer(state = defaultState, action) {
                 cityName: payload
             }
         }
-        case 'GET_WEATHER_FULFILLED': {
+        case 'SET_CITY_SELECTION': {
             return {
                 ...state,
-                cityData: payload,
+                citySelected: payload
+            }
+        }
+        case 'UPDATE_SEARCH_HISTORY': {
+            var date = new Date()
+            var month = date.getMonth()
+            var day = date.getDate()
+            var year = date.getFullYear()
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            var formattedDate = month + '/' + day + '/' + year;
+            var formattedTime = hours + ':' + minutes + ':' + seconds;
+            var historyItem = {
+                name: payload.name,
+                date: formattedDate, 
+                time: formattedTime
+            }
+            return {
+                ...state,
+                toggle: !payload.toggle,
+                searchHistory: [
+                    ...state.searchHistory,
+                    historyItem
+                ]
+            }
+        }
+        case 'GET_WEATHER_FULFILLED': {
+            var sunrise = new Date(payload.sys.sunrise * 1000)
+            var sunriseHours = sunrise.getHours();
+            var sunriseMinutes = '0' + sunrise.getMinutes();
+            var sunriseSeconds = '0' + sunrise.getSeconds();
+            var sunriseFormatted = sunriseHours + ':' + sunriseMinutes.substr(-2) + ':' + sunriseSeconds.substr(-2); 
+            var sunset = new Date(payload.sys.sunset * 1000)
+            var sunsetHours = sunset.getHours();
+            var sunsetMinutes = '0' + sunset.getMinutes();
+            var sunsetSeconds = '0' + sunset.getSeconds();
+            var sunsetFormatted = sunsetHours + ':' + sunsetMinutes.substr(-2) + ':' + sunsetSeconds.substr(-2); 
+
+            return {
+                ...state,
+                country: payload.sys.country,
                 temperature: payload.main.temp,
                 humidity: payload.main.humidity,
                 highTemp: payload.main.temp_max,
                 lowTemp: payload.main.temp_min,
-                sunrise: payload.sys.sunrise,
-                sunset: payload.sys.sunset,
-                windSpeed: payload.wind.speed
+                sunrise: sunriseFormatted,
+                sunset: sunsetFormatted,
+                windSpeed: payload.wind.speed,
             }
         }
         default: {
