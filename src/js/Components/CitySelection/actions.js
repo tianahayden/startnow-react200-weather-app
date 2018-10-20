@@ -18,7 +18,11 @@ export const getWeather = (value) => {
     return {
         type: 'GET_WEATHER',
         payload: axios.get('/api?value=' + value)
-            .then( ({ data }) => data )
+            .then(({ data }) => {
+                console.log(data)
+                return data
+            }
+            )
     }
 };
 

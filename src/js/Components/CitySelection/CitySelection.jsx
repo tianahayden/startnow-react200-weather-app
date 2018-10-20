@@ -45,7 +45,7 @@ export default class CitySelection extends React.Component {
                 </div>
                 <div className='row'>
                     <div className='input-group'>
-                        <input type='text' className='form-control' onChange={this.handleCitySearch} />
+                        <input type='text' className='form-control' placeholder='Enter City Name' onChange={this.handleCitySearch} />
                         <div className='input-group-append'>
                             <button className='btn btn-outline-secondary' type='button' onClick={this.handleSearchButton}>Go!</button>
                         </div>

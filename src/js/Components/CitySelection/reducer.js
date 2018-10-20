@@ -9,8 +9,10 @@ const defaultState = {
     sunrise: '',
     sunset: '',
     windSpeed: '',
-    toggle: true,
-    searchHistory: []
+    toggle: false,
+    searchHistory: [],
+    category: '',
+    description: ''
 };
 
 export default function CitySelectionReducer(state = defaultState, action) {
@@ -46,7 +48,7 @@ export default function CitySelectionReducer(state = defaultState, action) {
             }
             return {
                 ...state,
-                toggle: !payload.toggle,
+                toggle: true,
                 searchHistory: [
                     ...state.searchHistory,
                     historyItem
@@ -75,6 +77,8 @@ export default function CitySelectionReducer(state = defaultState, action) {
                 sunrise: sunriseFormatted,
                 sunset: sunsetFormatted,
                 windSpeed: payload.wind.speed,
+                category: payload.weather[0].main,
+                description: payload.weather[0].description
             }
         }
         default: {

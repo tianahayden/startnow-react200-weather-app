@@ -11,7 +11,8 @@ function mapStateToProps(store) {
         lowTemp: store.weather.lowTemp,
         sunrise: store.weather.sunrise,
         sunset: store.weather.sunset,
-        windSpeed: store.weather.windSpeed
+        windSpeed: store.weather.windSpeed,
+        toggle: store.weather.toggle,
     }
 }
 
